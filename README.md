@@ -7,19 +7,19 @@ php artisan make:controller Person -r - generate CRUD controller\
 
 ##DB
 
-1.make .env configs
-2.make models
-3.make migrations
-php artisan migrate
-for many to many 
-a.make:migration create_firstdbname_secdbname_table
-b.put into             
-$table->integer('firstdbname_id')->unsigned();
-$table->integer('secdbname_id')->unsigned();
-c.put into above models each other relations
-in Firstdbname model
-public function secdbnames()
-{
-return $this->belongsToMany(Secdbname::class);
-}
-appropriate into Secdbname
+1.make .env configs\
+2.make models\
+3.make migrations\
+php artisan migrate\
+for many to many \
+a.make:migration create_firstdbname_secdbname_table\
+b.put into\       
+$table->integer('firstdbname_id')->unsigned();\
+$table->integer('secdbname_id')->unsigned();\
+c.put into above models each other relations\
+in Firstdbname model\
+public function secdbnames()\
+{\
+return $this->belongsToMany(Secdbname::class);\
+}\
+appropriate into Secdbname\refresg
