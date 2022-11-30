@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Person extends Model
+class Sport extends Model
 {
     use HasFactory;
-    public function sports()
+    public function people()
     {
-        return $this->belongsToMany(Sport::class);
+        return $this->belongsToMany(Person::class);
     }
+    public $timestamps = false;
 }

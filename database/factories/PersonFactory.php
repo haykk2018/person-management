@@ -17,7 +17,13 @@ class PersonFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'fname' => fake()->name(),
+            'lname' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'tel' => fake()->unique()->phoneNumber(),
+            'updated_at'=>fake()->dateTime(),
+            'created_at'=>fake()->dateTime(),
+
         ];
     }
 }
