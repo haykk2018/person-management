@@ -15,6 +15,6 @@
         </style>
     </head>
     <body>
-    <a href="#">new person</a>
+    <a href="create">new person</a>
     </body>
 </html>
