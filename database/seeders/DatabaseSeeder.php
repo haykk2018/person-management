@@ -17,21 +17,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-//            PersonSeeder::class,
             SportSeeder::class,
         ]);
-        Person::factory(10)->create();
-        $sports = Sport::all(['id']);
 
-        Person::All()->each(function ($person) use ($sports) {
+        Person::factory(10)->create();
+
+        $sportsId = Sport::all(['id']);
+        Person::All()->each(function ($person) use ($sportsId) {
             $person->sports()->attach(
-                $sports->random(rand(1, 3))->pluck('id')->toArray()
+                $sportsId->random(rand(1, 3))->pluck('id')->toArray()
             );
         });
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
     }
 }
