@@ -13,4 +13,5 @@ class Sport extends Model
         return $this->belongsToMany(Person::class);
     }
     public $timestamps = false;
+    protected $guarded = [];
 }

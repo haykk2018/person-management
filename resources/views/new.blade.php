@@ -15,14 +15,15 @@
     </style>
 </head>
 <body>
-<form action="/xx.php">
+<form action="/" method="post">
+    @csrf
     <label for="fname">First name:</label>
     <input type="text" id="fname" name="fname"><br><br>
     <label for="lname">Last name:</label>
     <input type="text" id="lname" name="lname"><br><br>
     <p>
         <label for="birthday">Birthday:</label>
-        <input type="date" id="birthday" name="birthday">
+        <input type="date" id="birth" name="birth">
     </p>
     <p>
         <label for="email">Email:</label>
@@ -34,14 +35,11 @@
     </p>
     <fieldset>
         <legend>Favorite sports</legend>
-        <div>
-            <input type="checkbox" id="football" name="fav_sports" value="football">
-            <label for="football"> Football </label><br>
-            <input type="checkbox" id="box" name="fav_sports" value="box">
-            <label for="box"> Box </label><br>
-        </div>
+        @foreach($sports as $sport)
+            <input type="checkbox" id="{{$sport->id}}" name="sports[]" value="{{$sport->id}}">
+            <label for="{{$sport->name}}">{{$sport->name}}</label>
+        @endforeach
     </fieldset>
-
 
     <input type="submit" value="Submit">
 </form>

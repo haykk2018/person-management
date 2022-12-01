@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,4 +13,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resources(['/' => \App\Http\Controllers\PersonController::class,]);
+//Route::resources(['/' => PersonController::class,]);
+//Route::resource('/','App\Http\Controllers\PersonController');
+Route::controller(PersonController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/edit/{id}', 'edit');
+    Route::get('/view/{id}', 'show');
+    Route::get('/create', 'create');
+    Route::post('/', 'store');
+    Route::put('/{post}','update');
+    Route::delete('delete/{id}','destroy');
+});

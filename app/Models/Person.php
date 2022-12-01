@@ -12,4 +12,5 @@ class Person extends Model
     {
         return $this->belongsToMany(Sport::class);
     }
+    protected $guarded = [];
 }

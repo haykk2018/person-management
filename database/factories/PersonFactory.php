@@ -21,6 +21,7 @@ class PersonFactory extends Factory
             'lname' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'tel' => fake()->unique()->phoneNumber(),
+            'birth' => fake()->date,
             'updated_at'=>fake()->dateTime(),
             'created_at'=>fake()->dateTime(),
 
