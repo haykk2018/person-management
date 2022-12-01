@@ -20,8 +20,8 @@ class PersonFactory extends Factory
             'fname' => fake()->name(),
             'lname' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'tel' => fake()->unique()->phoneNumber(),
-            'birth' => fake()->date,
+            'tel' => fake()->bothify('(###) ###-####'),
+            'birth' => fake()->date('m/d/y'),
             'updated_at'=>fake()->dateTime(),
             'created_at'=>fake()->dateTime(),
 

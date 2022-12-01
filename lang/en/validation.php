@@ -171,6 +171,12 @@ return [
     |
     */
 
-    'attributes' => [],
-
+    'attributes' => [
+        'fname'=> 'First Name',
+        'lname'=> 'Last Name',
+        'tel'=> 'Phone Number',
+        'birth'=> 'Date of Birth',
+        'email' => 'Email Address',
+        'sports' => 'Favorite sports',
+    ],
 ];

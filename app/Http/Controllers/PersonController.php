@@ -37,7 +37,7 @@ class PersonController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -100,7 +100,7 @@ class PersonController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Person $person
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, int $id)
     {
@@ -113,7 +113,7 @@ class PersonController extends Controller
             'tel' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect('/' . $id)
+            return redirect('/edit/' . $id)
                 ->withErrors($validator)
                 ->withInput();
         } else {
