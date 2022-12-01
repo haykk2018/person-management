@@ -6,6 +6,8 @@ use App\Models\Person;
 use App\Models\Sport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class PersonController extends Controller
 {
@@ -28,7 +30,7 @@ class PersonController extends Controller
     public function create()
     {
         $sports = Sport::all();
-        return view('new' , ['sports' => $sports]);
+        return view('new', ['sports' => $sports]);
     }
 
     /**
@@ -39,15 +41,33 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        $person = new Person();
-        $arr = $request->only(['fname', 'lname', 'email', 'tel','birth']);
-        $person->fill($arr);
-        $person->save();
-        if (isset($request['sports'])) {
-            $person->sports()->attach($request['sports']);
+        $data = $request->only(['fname', 'lname', 'email', 'tel', 'birth', 'sports']);
+
+        $validator = Validator::make($data, [
+            'fname' => 'required|min:3',
+            'lname' => 'required|min:3',
+            'email' => 'required|unique:App\Models\Person,email',
+            'birth' => 'required',
+            'tel' => 'required',
+            'sports' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect('create')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $validated = $validator->validated();
+            $person = new Person();
+            Arr::pull($validated, 'sports');
+            $person->fill($validated);
+
+            $person->save();
+            if (isset($data['sports'])) {
+                $person->sports()->attach($request['sports']);
+            }
+            $person->save();
+            return redirect('/');
         }
-        $person->save();
-        return redirect('/');
     }
 
     /**
@@ -84,15 +104,30 @@ class PersonController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $person = Person::find($id);
-        $arr = $request->only(['fname', 'lname', 'email', 'tel']);
-        $person->fill($arr);
-        if (isset($request['sports'])) {
-            $person->sports()->detach();
-            $person->sports()->attach($request['sports']);
+        $data = $request->only(['fname', 'lname', 'email', 'tel', 'birth']);
+        $validator = Validator::make($data, [
+            'fname' => 'required|min:3',
+            'lname' => 'required|min:3',
+            'email' => ['required', Rule::unique('people')->ignore($id)],
+            'birth' => 'required',
+            'tel' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/' . $id)
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $validated = $validator->validated();
+            $person = Person::find($id);
+
+            $person->fill($validated);
+            if (isset($request['sports'])) {
+                $person->sports()->detach();
+                $person->sports()->attach($request['sports']);
+            }
+            $person->save();
+            return redirect('/');
         }
-        $person->save();
-        return redirect('/');
     }
 
     /**
