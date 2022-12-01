@@ -24,3 +24,7 @@ Route::controller(PersonController::class)->group(function () {
     Route::put('/{post}','update');
     Route::delete('delete/{id}','destroy');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
