@@ -9,7 +9,7 @@
             </ul>
         </div>
     @endif
-    <form action="/{{$person->id}}" method="POST" enctype="multipart/form-data">
+    <form action="/{{$person->id}}" method="PUT" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="mb-3">
